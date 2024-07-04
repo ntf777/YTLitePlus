@@ -141,6 +141,32 @@ static BOOL IsEnabled(NSString *key) {
 }
 %end
 
+// Fullscreen to the Right (iPhone-exclusive) - @arichornlover
+// NOTE: Please turn off the “Portrait Fullscreen” Option while the code below is active
+// %group gFullscreenToTheRight // No toggleable option just yet. This implementation is experimental.
+%hook YTWatchViewController
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    if ([self fullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return UIInterfaceOrientationLandscapeRight;
+    }
+    return %orig;
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if ([self fullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return UIInterfaceOrientationMaskLandscape;
+    }
+    return %orig;
+}
+%new
+- (void)forceRightFullscreenOrientation { // custom void
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    }
+}
+%end
+// %end
+
 %group gHideVideoPlayerShadowOverlayButtons
 %hook YTMainAppControlsOverlayView
 - (void)layoutSubviews {
