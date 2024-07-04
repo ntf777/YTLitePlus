@@ -111,6 +111,14 @@
 @interface YTWatchMiniBarView : UIView
 @end
 
+// Fullscreen to the right
+@interface YTWatchViewController (uYouEnhanced)
+- (NSUInteger) allowedFullScreenOrientations;
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations;
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation;
+- (void)forceRightFullscreenOrientation; // custom void
+@end
+
 // YTAutoFullscreen
 @interface YTPlayerViewController (YTAFS)
 - (void)autoFullscreen;
