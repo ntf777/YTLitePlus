@@ -37,7 +37,7 @@
 #define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
 #define YT_BUNDLE_ID @"com.google.ios.youtube"
 #define YT_NAME @"YouTube"
-#define LOWCONTRASTMODE_CUTOFF_VERSION @"17.38.10"
+#define LOWCONTRASTMODE_CUTOFF_VERSION @"17.38.10" // 17.33.2-17.38.10
 #define IS_ENABLED(k) [[NSUserDefaults standardUserDefaults] boolForKey:k]
 #define APP_THEME_IDX [[NSUserDefaults standardUserDefaults] integerForKey:@"appTheme"]
 
@@ -111,8 +111,12 @@
 @interface YTWatchMiniBarView : UIView
 @end
 
-// Fullscreen to the right
-@interface YTWatchViewController (uYouEnhanced)
+// Disable Pull to Full for landscape videos + Fullscreen to the right - @arichornlover & @bhackel
+@interface YTWatchPullToFullController : NSObject
+@property(nonatomic, strong) YTWatchViewController *playerViewSource;
+@end
+
+@interface YTWatchViewController (YTLitePlus)
 - (NSUInteger) allowedFullScreenOrientations;
 - (UIInterfaceOrientationMask) supportedInterfaceOrientations;
 - (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation;
