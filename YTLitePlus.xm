@@ -146,13 +146,13 @@ static BOOL IsEnabled(NSString *key) {
 // %group gFullscreenToTheRight // No toggleable option just yet. This implementation is experimental.
 %hook YTWatchViewController
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if ([self fullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ([self isFullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationLandscapeRight;
     }
     return %orig;
 }
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if ([self fullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if ([self isFullscreen] && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskLandscape;
     }
     return %orig;
